@@ -8,7 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SimulationTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
+    <PackageReference Include="xunit.assert" Version="2.5.1" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Robots\Tests\" />
   </ItemGroup>
 
 </Project>

@@ -24,5 +24,5 @@
     {
         return GetType().Name;
     }
-    public abstract bool CheckInside();
+    public abstract bool CheckInside(int x, int y);
 }

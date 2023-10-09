@@ -1,2 +1,2 @@
-﻿iSimulation sim = new Simulation();
+﻿Simulation sim = new DialogSimulation();
 sim.Start(); 

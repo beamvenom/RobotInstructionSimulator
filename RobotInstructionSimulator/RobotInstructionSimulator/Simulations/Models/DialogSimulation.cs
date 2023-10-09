@@ -1,23 +1,28 @@
-﻿public class Simulation : iSimulation
+﻿using Microsoft.VisualBasic.FileIO;
+using Xunit;
+
+public class DialogSimulation : Simulation
 {
-    private Field _field;
-    private Robot _robot;
-    public Simulation()
+    public DialogSimulation() : base() 
     {
         _field = SetupField();
         _robot = SetupRobot();
     }
-    public void Start()
+    public override void Start()
     {
         Console.WriteLine($"\nSimulation started with: \nField: {_field}\nRobot: {_robot}\nThis robot can do these instructions below. \n{_robot.GetInstructions()}\nWhat instruction do you want the robot to perform?");
         string answer = Console.ReadLine();
         while( answer != "0" )
         {
-            _robot.Execute(Int32.Parse(answer));
+            _robot.Execute(int.Parse(answer));
+            Console.WriteLine($"Current coordinates : [{_robot.GetX()},{_robot.GetY()}]");
+            Console.WriteLine($"Inside the {_field}: {_field.CheckInside(_robot.GetX(), _robot.GetY())}\n");
             answer= Console.ReadLine();
         }
+        PrintResults();
     }
-    private Field SetupField()
+
+    protected override Field SetupField()
     {
         FieldFactory fieldFactory = new FieldFactory();
         Console.WriteLine("What field do you want?\n" + fieldFactory.List());
@@ -30,13 +35,13 @@
         Field field = fieldFactory.Create(answer);
         Console.WriteLine("How wide do you want the " + field.GetType().ToString());
         answer = Console.ReadLine();
-        field.SetWidth(Int32.Parse(answer));
+        field.SetWidth(int.Parse(answer));
         Console.WriteLine("How high do you want the " + field.GetType().ToString());
         answer = Console.ReadLine();
-        field.SetHeight(Int32.Parse(answer));
+        field.SetHeight(int.Parse(answer));
         return field;
     }
-    private Robot SetupRobot()
+    protected override Robot SetupRobot()
     {
         RobotFactory robotFactory = new RobotFactory();
         Console.WriteLine("What robot do you want?\n" + robotFactory.List());
@@ -49,14 +54,21 @@
         Robot robot = robotFactory.Create(answer);
         Console.WriteLine(robot.GetType().ToString() + "'s starting X position:");
         answer = Console.ReadLine();
-        robot.SetX(Int32.Parse(answer));
+        robot.SetX(int.Parse(answer));
         Console.WriteLine(robot.GetType().ToString() + "'s starting Y position:");
         answer = Console.ReadLine();
-        robot.SetY(Int32.Parse(answer));
-        Console.WriteLine(robot.GetType().ToString() + "'s starting rotation in degrees (0 is east):");
+        robot.SetY(int.Parse(answer));
+        Console.WriteLine(robot.GetType().ToString() + "'s starting rotation counter clockwise in degrees (0 is east):");
         answer = Console.ReadLine();
-        robot.SetRotation(Int32.Parse(answer));
+        robot.SetRotation(int.Parse(answer));
         return robot;
     }
-    
+    protected override Field SetupField(string fieldType, int width, int height) 
+    {
+        return SetupField();
+    }
+    protected override Robot SetupRobot(string robotType, int x, int y, int rotation) 
+    {
+        return SetupRobot();
+    }
 }

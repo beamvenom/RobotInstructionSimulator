@@ -2,7 +2,7 @@
 
 public class FieldFactory : CachedFactory<Field>
 {
-    private string[] fieldList = { "rectangle", "triangle" };
+    private string[] fieldList = { "rectangle", "righttriangle" };
     public FieldFactory()
     {
 
@@ -15,8 +15,8 @@ public class FieldFactory : CachedFactory<Field>
         {
             case "rectangle":
                 return new Rectangle();
-            case "triangle":
-                return new Triangle();
+            case "righttriangle":
+                return new RightTriangle();
             default:
                 return null;
         }

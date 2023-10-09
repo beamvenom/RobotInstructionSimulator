@@ -44,12 +44,8 @@
     }
     public void Move(int units)
     {
-        Console.Write(_x);
-        Console.WriteLine(_y);
         _x += Convert.ToInt32(units * Math.Cos(Math.PI / 180 * GetRotation()));
         _y -= Convert.ToInt32(units * Math.Sin(Math.PI / 180 * GetRotation()));
-        Console.Write(_x);
-        Console.WriteLine(_y);
     }
     public override string ToString()
     {

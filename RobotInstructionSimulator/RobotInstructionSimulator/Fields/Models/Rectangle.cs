@@ -2,8 +2,8 @@
 {
     public Rectangle() { }
 
-    public override bool CheckInside()
+    public override bool CheckInside(int x, int y)
     {
-        return true;
+        return !(x < 0 || y < 0 || x > GetWidth() || y > GetHeight());
     }
 }

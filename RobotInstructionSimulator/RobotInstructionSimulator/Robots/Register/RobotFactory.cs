@@ -9,7 +9,7 @@ public class RobotFactory
 
     }
 
-    public Robot? Create(string type)
+    public Robot Create(string type)
     {
         switch (type)
         {
