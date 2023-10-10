@@ -1,2 +1,2 @@
-﻿Simulation sim = new DialogSimulation();
-sim.Start(); 
+﻿Simulation sim = new();
+var res = await sim.DialogStart(); 

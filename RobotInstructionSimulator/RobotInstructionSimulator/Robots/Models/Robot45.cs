@@ -24,4 +24,8 @@
                 break;
         }
     }
+    public override string Describe()
+    {
+        return "Robot90 - A robot that turns 45 degrees at a time!";
+    }
 }

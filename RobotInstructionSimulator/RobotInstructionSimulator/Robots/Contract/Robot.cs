@@ -6,19 +6,19 @@
     private string _instructions;
 
     protected Robot(){ }
-    public int GetX()
+    public virtual int GetX()
     {
         return _x;
     }
-    public void SetX(int x)
+    public virtual void SetX(int x)
     {
         _x = x;
     }
-    public int GetY()
+    public virtual int GetY()
     {
         return _y;
     }
-    public void SetY(int y)
+    public virtual void SetY(int y)
     {
         _y = y;
     }
@@ -38,11 +38,11 @@
     {
         _instructions = instructions;
     }
-    public void Turn(int degrees)
+    public virtual void Turn(int degrees)
     {
         SetRotation(GetRotation() + degrees);
     }
-    public void Move(int units)
+    public virtual void Move(int units)
     {
         _x += Convert.ToInt32(units * Math.Cos(Math.PI / 180 * GetRotation()));
         _y -= Convert.ToInt32(units * Math.Sin(Math.PI / 180 * GetRotation()));
@@ -51,6 +51,11 @@
     {
         return GetType().Name;
     }
+    public virtual string Describe() 
+    {
+        return GetType().Name;
+    }
+
     public abstract void Execute(int command);
 
 }

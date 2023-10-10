@@ -3,7 +3,7 @@ public class RobotTests
     [Fact]
     public void TestRobot90()
     {
-        RobotFactory robotFactory = new RobotFactory();
+        RobotFactory robotFactory = new();
         Robot robot = robotFactory.Create("robot90");
         Assert.NotNull(robot);
         robot.SetX(1);
@@ -20,7 +20,7 @@ public class RobotTests
     [Fact]
     public void TestRobot45()
     {
-        RobotFactory robotFactory = new RobotFactory();
+        RobotFactory robotFactory = new();
         Robot robot = robotFactory.Create("robot45");
         Assert.NotNull(robot);
         robot.SetX(1);

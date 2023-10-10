@@ -1,4 +1,5 @@
 ﻿using RobotInstructionSimulator.CachedFactory;
+using System.Threading.Tasks;
 
 public class FieldFactory : CachedFactory<Field>
 {
@@ -8,15 +9,15 @@ public class FieldFactory : CachedFactory<Field>
 
     }
 
-    protected override Field CreateInstance(string type)
+    protected async override Task<Field> CreateInstanceAsync(string type)
     {
-        //For example for bigger projects if below would be something time/money costly and we only need one. Which is why we are caching it. Benefit of using factories.
+        //For example for bigger projects if below would be something time/money costly and we only need one. Which is why we are caching it.
         switch (type.ToLower())
         {
             case "rectangle":
-                return new Rectangle();
+                return await TimeConsumingAPICallForRectangle();
             case "righttriangle":
-                return new RightTriangle();
+                return await TimeConsumingAPICallForRightTriangle();
             default:
                 return null;
         }
@@ -28,5 +29,25 @@ public class FieldFactory : CachedFactory<Field>
     public bool Contains(string type)
     {
         return fieldList.Contains(type);
+    }
+    private async Task<Rectangle> TimeConsumingAPICallForRectangle()
+    {
+        var task = Task.Run(async delegate
+        {
+            Console.WriteLine($"Fetching a Rectangle from the database...");
+            await Task.Delay(TimeSpan.FromSeconds(1.5));
+            return new Rectangle();
+        });
+        return task.Result;
+    }
+    private async Task<RightTriangle> TimeConsumingAPICallForRightTriangle()
+    {
+        var task = Task.Run(async delegate
+        {
+            Console.WriteLine($"Fetching a RightTriangle from the database...");
+            await Task.Delay(TimeSpan.FromSeconds(1.5));
+            return new RightTriangle();
+        });
+        return task.Result;
     }
 }

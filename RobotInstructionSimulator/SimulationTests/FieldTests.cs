@@ -1,10 +1,10 @@
 public class FieldTests
 {
     [Fact]
-    public void TestRectangle()
+    public async void TestRectangle()
     {
         FieldFactory fieldFactory = new FieldFactory();
-        Field rectangle = fieldFactory.Create("rectangle");
+        Field rectangle = await fieldFactory.CreateAsync("rectangle");
         Assert.NotNull(rectangle);
         rectangle.SetWidth(4);
         rectangle.SetHeight(4);
@@ -13,10 +13,10 @@ public class FieldTests
         Assert.False(rectangle.CheckInside(5, 1));
     }
     [Fact]
-    public void TestRightTriangle()
+    public async void TestRightTriangle()
     {
         FieldFactory fieldFactory = new FieldFactory();
-        Field rightTriangle = fieldFactory.Create("righttriangle");
+        Field rightTriangle = await fieldFactory.CreateAsync("righttriangle");
         Assert.NotNull(rightTriangle);
         rightTriangle.SetWidth(4);
         rightTriangle.SetHeight(4);

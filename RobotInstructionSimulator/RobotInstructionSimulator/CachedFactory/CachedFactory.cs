@@ -5,25 +5,24 @@ namespace RobotInstructionSimulator.CachedFactory
 {
     public abstract class CachedFactory<T> : ICachedFactory<T>
     {
-        private static MemoryCache FactoryCache { get; } = new($"FactoryCache_{typeof(T).Name}");
-        public T Create(string type)
+        private static MemoryCache FactoryCache { get; set; } = new("FactoryCahe");
+        public virtual async Task<T> CreateAsync(string type)
         {
             //For example for bigger projects if below would be something time/money costly and we only need one. Which is why we are caching it.
-            if (FactoryCache[type] is T instance)
+            if (FactoryCache[type.ToLower()] is T instance)
                 return instance;
 
-            T newInstance = CreateInstance(type) ?? throw new Exception();
-            Console.WriteLine(newInstance.GetType().ToString());
+            T newInstance = await CreateInstanceAsync(type) ?? throw new Exception();
 
-            FactoryCache.Set(newInstance.GetType().ToString(), newInstance, DateTimeOffset.Now.AddMinutes(10));
+            FactoryCache.Set(newInstance.GetType().ToString().ToLower(), newInstance, DateTimeOffset.Now.AddMinutes(10));
 
             return newInstance;
         }
-        public void ClearCache()
+        public static void ClearCache()
         {
-            FactoryCache.Dispose();
+            FactoryCache = new("FactoryCahe");
         }
-        protected abstract T CreateInstance(string type);
+        protected abstract Task<T> CreateInstanceAsync(string type);
         
     }
 

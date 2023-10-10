@@ -1,4 +1,4 @@
 ﻿public interface ICachedFactory<T>
 {
-    T Create(string type);
+    Task<T> CreateAsync(string type);
 }
